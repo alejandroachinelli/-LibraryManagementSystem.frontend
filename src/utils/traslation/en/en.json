@@ -1,0 +1,19 @@
+{
+    "Spanish": "Spanish",
+    "English": "English",
+    "SelectLanguage": "Select your language",
+    "RequestBookLoan": "Request book loan",
+    "Home": "Home",
+    "AddBook": "Add book",
+    "Title": "Title",
+    "Authors": "Authors",
+    "Publisher": "Publisher",
+    "PublicationYear": "Publication Year",
+    "PageCount": "Page Count",
+    "Category": "Category",
+    "AvailableCopies": "Available Copies",
+    "TotalCopies": "Total Copies",
+    "LibraryManagementSystem": "Library Management System",
+    "Actions": "Actions",
+    "NoBooksFound": "No Books Found"
+}

@@ -1,0 +1,19 @@
+{
+    "Spanish": "Español",
+    "English": "Ingles",
+    "SelectLanguage": "Seleccione su idioma",
+    "RequestBookLoan": "Solicitar prestamo de libro",
+    "Home": "Inicio",
+    "AddBook": "Agregar libro",
+    "Title": "Título",
+    "Authors": "Autores",
+    "Publisher": "Editorial",
+    "PublicationYear": "Año de publicación",
+    "PageCount": "Número de páginas",
+    "Category": "Categoría",
+    "AvailableCopies": "Ejemplares disponibles",
+    "TotalCopies": "Ejemplares totales",
+    "LibraryManagementSystem": "Libreria Sistema de Gestion",
+    "Actions": "Acciones",
+    "NoBooksFound": "No se encontraron libros"
+}

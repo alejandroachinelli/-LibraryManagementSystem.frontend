@@ -1,0 +1,13 @@
+@import './presentation/assets/css/icons.css';
+@import "./presentation/assets/scss/variables"; //
+@import "./presentation/assets/scss/switcher";
+
+@import "./presentation/assets/css/styles.css";
+@import 'react-perfect-scrollbar/dist/css/styles.css'; //perfectscrollbar
+
+//simonwep colorpicker
+@import "@simonwep/pickr/dist/themes/classic.min.css";
+@import "@simonwep/pickr/dist/themes/monolith.min.css";
+@import "@simonwep/pickr/dist/themes/nano.min.css";
+
+//leaflet
