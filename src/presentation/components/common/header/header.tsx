@@ -3,9 +3,16 @@ import { Dropdown, Navbar, Container, Nav, Button } from 'react-bootstrap';
 import us from "../../../assets/images/flags/estados-unidos.png";
 import spain from "../../../assets/images/flags/españa.png";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
+
+    const routeChange = (route?: string) => {
+        const path = `/${route}`;
+        navigate(path);
+    };
 
     const changeLanguage = (lang:string) => {
         i18n.changeLanguage(lang);
@@ -20,12 +27,16 @@ const Header = () => {
                     <Navbar.Collapse className="" id="navbarSupportedContent">
                         <Nav as="ul" className="navbar-nav me-auto mb-2 mb-lg-0">
                             <Nav.Item>
-                                <Button>
+                                <Button
+                                    onClick={() => routeChange('')}
+                                >
                                     {t("Home")}
                                 </Button>
                             </Nav.Item>
                             <Nav.Item>
-                                <Button>
+                                <Button
+                                    onClick={() => routeChange('Loan')}
+                                >
                                     {t("RequestBookLoan")}
                                 </Button>
                             </Nav.Item>

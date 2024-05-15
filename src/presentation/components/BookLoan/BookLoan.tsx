@@ -1,40 +1,56 @@
 import { Col, Card, Pagination, Button, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from 'react';
-import { BookService } from '../../../application/services/Book.service';
-import { setBooks } from '../../../infrastructure/redux/slices/library';
-import { setLoading, setShowModal } from '../../../infrastructure/redux/slices/ui';
-import ModalAddBook from '../ModalAddBook/ModalAddBook';
+import { setLoading, setShowModalLoan } from '../../../infrastructure/redux/slices/ui';
 import { useTranslation } from 'react-i18next';
+import ModalAddLoan from '../ModalAddLoan/ModalAddLoan';
+import { BookService } from '../../../application/services/Book.service';
+import { setBooks, setLoanBooks } from '../../../infrastructure/redux/slices/library';
+import { format } from 'date-fns';
+import { LoanBook } from '../../../domain/models/LoanBook';
 
-const BookList = () => {
+const BookLoan = () => {
     const dispatch = useDispatch();
-    const books = useSelector(state => state.library.books);
+    const loanBooks = useSelector(state => state.library.loanBooks);
     const loading = useSelector(state => state.ui.loading);
 
     const { t } = useTranslation();
 
-    const initBooks = async() => {
+    const initLoan = async() => {
         dispatch(setLoading(true));
 
         setTimeout(async () => {
             const response = await BookService.getAllBooks();
             dispatch(setBooks(response.data));
-            dispatch(setLoading(false)); // Finalizar carga
+
+            const responseLoan = await BookService.getAllLoanBooks();
+            dispatch(setLoanBooks(responseLoan.data));
+            
+            dispatch(setLoading(false));
         }, 2000);
     }
 
     useEffect(() => {
-        initBooks();
+        initLoan();
     }, [])
 
-    const deleteBook = async(id: string) => {
-        const response = await BookService.deleteBook(id);
-        initBooks();
+    const showModal = (show: boolean) => {
+        dispatch(setShowModalLoan(show));
     }
 
-    const showModal = (show: boolean) => {
-        dispatch(setShowModal(show));
+    function formatDate(dateString: string) {
+        const date = new Date(dateString);
+        return format(date, 'dd/MM/yyyy');
+    }
+
+    const returnBook = async (loanBook: LoanBook) => {
+        const response = await BookService.returnBook(loanBook);
+        initLoan();
+    }
+
+    const returnAllBook = async () => {
+        const response = await BookService.returnAllBook();
+        initLoan();
     }
     
     
@@ -56,19 +72,26 @@ const BookList = () => {
                     ) : 
                     (
                         <>
-                            <ModalAddBook/>
+                            <ModalAddLoan/>
                             <Col>
                                 <Card className="custom-card">
                                     <Card.Header className="justify-content-between">
                                         <Card.Title>
-                                            {t("LibraryManagementSystem")}
+                                            {t("LibraryLoansMade")}
                                         </Card.Title>
                                         <Button 
                                             className="btn btn-success label-btn label-end"
                                             onClick={() => showModal(true)}
                                         >
-                                            {t("AddBook")}
+                                            {t("RequestALoan")}
                                             <i className="ri-add-line label-btn-icon ms-2"></i>
+                                        </Button>
+                                        <Button 
+                                            className="btn btn-danger label-btn label-end"
+                                            onClick={()=> returnAllBook()}
+                                        >
+                                            {t("ReturnAll")}
+                                            <i className="ri-arrow-go-back-line label-btn-icon ms-2"></i>
                                         </Button>
                                     </Card.Header>
                                     <Card.Body>
@@ -77,50 +100,46 @@ const BookList = () => {
                                                 <tr>
                                                     <th scope="col">{t("Title")}</th>
                                                     <th scope="col">{t("Authors")}</th>
-                                                    <th scope="col">{t("Publisher")}</th>
-                                                    <th scope="col">{t("PublicationYear")}</th>
-                                                    <th scope="col">{t("PageCount")}</th>
                                                     <th scope="col">{t("Category")}</th>
-                                                    <th scope="col">{t("AvailableCopies")}</th>
-                                                    <th scope="col">{t("TotalCopies")}</th>
-                                                    <th scope="col">{t("Actions")}</th>
+                                                    <th scope="col">{t("DateFrom")}</th>
+                                                    <th scope="col">{t("DateTo")}</th>
+                                                    <th scope="col">{t("UserName")}</th>
+                                                    <th scope="col">{t("UserLastName")}</th>
+                                                    <th scope="col">{t("Return")}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {books.map((book)=>(
+                                                {loanBooks.map((loanBook)=>(
                                                 <tr key={Math.random()}>
                                                     <td>
-                                                        <span className="fw-semibold">{book.title}</span>
+                                                        <span className="fw-semibold">{loanBook.title}</span>
                                                     </td>
                                                     <td>
-                                                        <span className="fw-semibold">{book.authors}</span>
+                                                        <span className="fw-semibold">{loanBook.authors}</span>
                                                     </td>
                                                     <td>
-                                                        <span className="fw-semibold">{book.publisher}</span>
+                                                        <span className="fw-semibold">{loanBook.category}</span>
                                                     </td>
                                                     <td>
-                                                        <span className="fw-semibold">{book.publicationYear}</span>
+                                                        <span className="fw-semibold">{formatDate(loanBook.dateFrom)}</span>
                                                     </td>
                                                     <td>
-                                                        <span className="fw-semibold">{book.pageCount}</span>
+                                                        <span className="fw-semibold">{formatDate(loanBook.dateTo)}</span>
                                                     </td>
                                                     <td>
-                                                        <span className="fw-semibold">{book.category}</span>
+                                                        <span className="fw-semibold">{loanBook.userName}</span>
                                                     </td>
                                                     <td>
-                                                        <span className="fw-semibold">{book.availableCopies}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span className="fw-semibold">{book.totalCopies}</span>
+                                                        <span className="fw-semibold">{loanBook.userLastName}</span>
                                                     </td>
                                                     <td>
                                                         <div className="mb-md-0 mb-2">
                                                             <Button 
-                                                                variant="danger" 
+                                                                variant="primary" 
                                                                 className="btn btn-icon btn-wave"
-                                                                onClick={()=> deleteBook(book.id)}
+                                                                onClick={()=> returnBook(loanBook)}
                                                             >
-                                                                <i className="ri-delete-bin-line"></i>
+                                                                <i className="ri-arrow-go-back-line"></i>
                                                             </Button>
                                                         </div>
                                                     </td>
@@ -140,4 +159,4 @@ const BookList = () => {
     );
 };
 
-export default BookList;
+export default BookLoan;

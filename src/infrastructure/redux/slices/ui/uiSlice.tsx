@@ -5,7 +5,8 @@ const initialState: Ui = {
     loading: false,
     error: false,
     messageError: '',
-    showModal: false
+    showModal: false,
+    showModalLoan: false
 };
 
 export const uiSlice = createSlice({
@@ -23,6 +24,9 @@ export const uiSlice = createSlice({
         },
         setShowModal(state, action: PayloadAction<boolean>){
             state.showModal = action.payload;
+        },
+        setShowModalLoan(state, action: PayloadAction<boolean>){
+            state.showModalLoan = action.payload;
         }
     },
 });
@@ -31,5 +35,6 @@ export const {
     setLoading,
     setErrorLogin,
     setMessageErrorLogin,
-    setShowModal
+    setShowModal,
+    setShowModalLoan
 } = uiSlice.actions;

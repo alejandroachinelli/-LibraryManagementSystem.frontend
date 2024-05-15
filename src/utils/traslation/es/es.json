@@ -15,5 +15,15 @@
     "TotalCopies": "Ejemplares totales",
     "LibraryManagementSystem": "Libreria Sistema de Gestion",
     "Actions": "Acciones",
-    "NoBooksFound": "No se encontraron libros"
+    "NoBooksFound": "No se encontraron libros",
+    "DateFrom": "Fecha Desde",
+    "DateTo": "Fecha Hasta",
+    "UserName": "Nombre",
+    "UserLastName": "Apellido",
+    "LibraryLoansMade": "Libreria Prestamos Realizados",
+    "RequestALoan": "Solicitar prestamo",
+    "AddLoan": "Prestar libro",
+    "Return": "Devolver",
+    "ReturnAll": "Devolver todos los libros",
+    "YouMustCompleteAllFields": "Debes completar todos los campos"
 }

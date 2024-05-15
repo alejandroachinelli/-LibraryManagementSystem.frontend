@@ -15,5 +15,15 @@
     "TotalCopies": "Total Copies",
     "LibraryManagementSystem": "Library Management System",
     "Actions": "Actions",
-    "NoBooksFound": "No Books Found"
+    "NoBooksFound": "No Books Found",
+    "DateFrom": "Date From",
+    "DateTo": "Date To",
+    "UserName": "Name",
+    "UserLastName": "Last Name",
+    "LibraryLoansMade": "Library Loans Made",
+    "RequestALoan": "Request a loan",
+    "AddLoan": "Loan book",
+    "Return": "Return",
+    "ReturnAll": "Return all books",
+    "YouMustCompleteAllFields": "You must complete all fields"
 }

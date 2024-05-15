@@ -3,4 +3,5 @@ export type Ui = {
     error: boolean;
     messageError: string;
     showModal: boolean;
+    showModalLoan: boolean;
 }

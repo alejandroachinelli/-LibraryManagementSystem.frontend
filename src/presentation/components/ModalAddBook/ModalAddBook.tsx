@@ -25,23 +25,35 @@ export default function ModalAddBook () {
         event.preventDefault();
 
         const formElements = event.target.elements;
+        const title = formElements.title.value;
+        const authors = formElements.authors.value;
+        const publisher = formElements.publisher.value;
+        const publicationYear = parseInt(formElements.publicationYear.value);
+        const pageCount = parseInt(formElements.pageCount.value);
+        const category = formElements.category.value;
+        const availableCopies = parseInt(formElements.availableCopies.value);
+        const totalCopies = parseInt(formElements.totalCopies.value);
 
-        const newBook: Book = {
-            title: formElements.title.value,
-            authors: formElements.authors.value,
-            publisher: formElements.publisher.value,
-            publicationYear: parseInt(formElements.publicationYear.value),
-            pageCount: parseInt(formElements.pageCount.value),
-            category: formElements.category.value,
-            availableCopies: parseInt(formElements.availableCopies.value),
-            totalCopies: parseInt(formElements.totalCopies.value)
-        };
+        if(!title || !authors || !publisher || isNaN(publicationYear) || isNaN(pageCount) || !category || isNaN(availableCopies) || isNaN(totalCopies)){
+            
+        }else{
+            const newBook: Book = {
+                title: formElements.title.value,
+                authors: formElements.authors.value,
+                publisher: formElements.publisher.value,
+                publicationYear: parseInt(formElements.publicationYear.value),
+                pageCount: parseInt(formElements.pageCount.value),
+                category: formElements.category.value,
+                availableCopies: parseInt(formElements.availableCopies.value),
+                totalCopies: parseInt(formElements.totalCopies.value)
+            };
+            const response = await BookService.addBook(newBook);
+            
+            initBooks();
+    
+            closeModal(false);
+        }
 
-        const response = await BookService.addBook(newBook);
-        
-        initBooks();
-
-        closeModal(false);
     }
 
   return(

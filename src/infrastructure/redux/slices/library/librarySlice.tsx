@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Library } from '../../../../domain/models/Library';
 import { Book } from '../../../../domain/models/Book';
+import { LoanBook } from '../../../../domain/models/LoanBook';
 
 const initialState: Library = {
     books: [],
@@ -17,7 +18,7 @@ export const librarySlice = createSlice({
         setBooks(state, action: PayloadAction<Book[]>) {
             state.books = action.payload;
         },
-        setLoanBooks(state, action: PayloadAction<[]>) {
+        setLoanBooks(state, action: PayloadAction<LoanBook[]>) {
             state.loanBooks = action.payload;
         },
         setCurrentPage(state, action: PayloadAction<number>) {

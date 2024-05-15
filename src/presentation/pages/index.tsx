@@ -12,9 +12,9 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <Header />
         <BrowserRouter>
           <React.Suspense fallback={<Loader/>}>
+            <Header />
             <Routes />
           </React.Suspense>
         </BrowserRouter>
